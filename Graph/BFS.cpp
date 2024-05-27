@@ -1,24 +1,24 @@
 #include<iostream>
 #include<vector>
 #include<queue>
-#define maxn 1000
+#define MaxSize 1000
 
 using namespace std;
 
-bool vis[maxn];
-vector<int>adj[maxn];
+bool visited[MaxSize];
+vector<int>adjacent[MaxSize];
 queue<int>q;
-int lev[maxn];
-int par[maxn];
+int lev[MaxSize];
+int parent[MaxSize];
 
 void bfs(int node)
 {
-    if(!vis[node])
+    if(!visited[node])
     {
         lev[node]=0;
-        par[node]=node;
+        parent[node]=node;
         q.push(node);
-        vis[node]=true;
+        visited[node]=true;
         cout<<"\nThe required bfs traversal is"<<endl;
         //By printing fr variable after every change gives us the bfs traversal
         while(!q.empty())
@@ -26,14 +26,14 @@ void bfs(int node)
             int fr=q.front();
             cout<<fr<<" ";
             q.pop();
-            for(int i=0; i<adj[fr].size(); ++i)
+            for(int i=0; i<adjacent[fr].size(); ++i)
             {
-                int v= adj[fr][i];
-                if(!vis[v])
+                int v = adjacent[fr][i];
+                if(!visited[v])
                 {
                     lev[v]=lev[fr]+1;
-                    par[v]=fr;
-                    vis[v]=true;
+                    parent[v]=fr;
+                    visited[v]=true;
                     q.push(v);
                 }
             }
@@ -49,8 +49,8 @@ int main()
     {
         int a,b;
         cin>>a>>b;
-        adj[a].push_back(b);
-        adj[b].push_back(a);
+        adjacent[a].push_back(b);
+        adjacent[b].push_back(a);
     }
     int d;
     cin>>node>>d;
@@ -64,7 +64,7 @@ int main()
     int now=d;
     cout<<now<<" ";
     while(now!=node){
-        now=par[now];
+        now=parent[now];
         cout<<now<<" ";
     }
     cout<<endl;
