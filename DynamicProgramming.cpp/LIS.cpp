@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -7,83 +7,85 @@ typedef struct lis
     int input;
     int length;
     int previous;
-
 } custom_type;
 
 int LIS(int a[], int n)
 {
-    custom_type Arr[n] ;
 
-    for(int i = 0 ; i < n ; i++)
+    custom_type Arr[n];
+
+    for (int i = 0; i < n; i++)
     {
         Arr[i].input = a[i];
         Arr[i].length = 1;
         Arr[i].previous = -1;
     }
 
-//*******************LIS logic building process***********************
-    for(int i = 1 ; i < n ; i++ )
+    for (int i = 0; i < n; i++)
     {
-        for(int j = 0 ; j < i ; j++)
+        for (int j = 0; j < i; j++)
         {
-            if(Arr[i].input > Arr[j].input)
+            if (Arr[i].input > Arr[j].input)
             {
+                Arr[i].length = max(Arr[i].length, (1 + Arr[j].length));
 
-                Arr[i].length = max(Arr[i].length, (1 + Arr[j].length) );
-
-                if(Arr[i].length <= (Arr[j].length + 1))
+                if (Arr[i].length <= (1 + Arr[j].length))
                 {
-                    Arr[i].previous = j ;
+                    Arr[i].previous = j;
                 }
-
             }
         }
     }
 
-    //********for finding maximum length of LIS****************
-    int Max_length = Arr[0].length ;
-    int Max_position = 0;
+    int Max_Length = Arr[0].length;
+    int Max_Position;
 
-    for(int i = 0 ; i < n ; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(Arr[i].length > Max_length)
+        if (Max_Length < Arr[i].length)
         {
-            Max_length = Arr[i].length;
-            Max_position = i;
+            Max_Length = Arr[i].length;
+            Max_Position = i;
         }
     }
 
-   // backtracking................................
+    int Lis[Max_Length];
+    int k = Max_Length - 1;
+    int index = Max_Position;
 
-    int Lis[Max_length];
-    int k  = Max_length-1;
-    int index = Max_position;
-
-    while(index >= 0)
+    while (index >= 0)
     {
-        Lis[k] = Arr[index].input ;
+        Lis[k] = Arr[index].input;
         k--;
         index = Arr[index].previous;
-
     }
 
-    cout<<" LIS is = ";
-    for(int i = 0 ; i < Max_length ; i++)
+    cout << "The Lis is " << endl;
+    for (int i = 0; i < Max_Length; i++)
     {
-        cout<<" "<<Lis[i];
+        cout << Lis[i] << " ";
+        
     }
 
-    return Max_length;
+    cout<<endl;
+
+    return Max_Length;
 }
 
 int main()
 {
-    int n = 10;
-    int arr[100] = {9 , 2 , 5 , 3 , 7 , 11 , 8 , 10 , 13 , 6};
+    int n;
+    cout << "Input the number of elements in the array" << endl;
+    cin >> n;
 
-    int result = LIS(arr,n);
+    int arr[n];
 
-    cout<< " \n LIS length is = "<<result;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
 
-    return 0;
+    int result = LIS(arr, n);
+
+    cout << "The Length of LIS is" << result << endl;
 }

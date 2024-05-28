@@ -62,6 +62,7 @@ int Min_Edit_Distance(string s1 ,string s2 , int n , int m)
             if(  EDIT_DISTANCE[i-1][j] <= EDIT_DISTANCE[i-1][j-1]  &&  EDIT_DISTANCE[i-1][j] <= EDIT_DISTANCE[i][j-1] ) //if the characters are not same then we will move to the minimum of the three. the way we get minimum is by comparing the three values and moving to the minimum value.
             {
                 cout<< s1[i-1] << " removed from string 1"<<endl ;
+                
                 i--; //the string which gets removed is the string which is not present in the other string. So we will move to the next character of the string which is present in the other string.
             }
             else if(EDIT_DISTANCE[i-1][j-1] <= EDIT_DISTANCE[i-1][j]  &&  EDIT_DISTANCE[i-1][j-1] <= EDIT_DISTANCE[i][j-1])
